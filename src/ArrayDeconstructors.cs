@@ -2,7 +2,7 @@ using System;
 
 namespace Extensions.Generic.Deconstructors
 {
-    public static class ArrayDecontructors
+    public static class ArrayDeconstructors
     {
         public static void Deconstruct<T>(this T[] array, out T item1, out T item2)
         {
