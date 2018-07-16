@@ -13,15 +13,6 @@ namespace Extensions.Generic.Deconstructors
             item2 = array[1];
         }
 
-        private static void EnsureMinimumLength<T>(T[] array, int minLength, string paramName)
-        {
-            if (array.Length < minLength)
-            {
-                throw new ArgumentException(
-                    $"The provided array must have at least {minLength} elements.", paramName);
-            }
-        }
-
         public static void Deconstruct<T>(this T[] array, out T item1, out T item2, out T item3)
         {
             EnsureNotNull(array, nameof(array));
@@ -37,6 +28,15 @@ namespace Extensions.Generic.Deconstructors
             if (obj == null)
             {
                 throw new ArgumentNullException(paramName);
+            }
+        }
+
+        private static void EnsureMinimumLength<T>(T[] array, int minLength, string paramName)
+        {
+            if (array.Length < minLength)
+            {
+                throw new ArgumentException(
+                    $"The provided array must have at least {minLength} elements.", paramName);
             }
         }
     }
