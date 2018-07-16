@@ -2,9 +2,9 @@ using System;
 using FluentAssertions;
 using Xunit;
 
-namespace Extensions.Generic.Deconstructors
+namespace Extensions.Generic.Deconstructors.ArrayDeconstructors
 {
-    public class ArrayDeconstructorForTwoElementsShould
+    public class TwoElementDeconstructorShould
     {
         [Fact]
         public void ThrowArgumentNullExceptionGivenNullInput()
@@ -53,7 +53,7 @@ namespace Extensions.Generic.Deconstructors
             second.Should().Be(2);
         }
 
-[Fact]
+        [Fact]
         public void ReturnFirstTwoElementsOfLargerArray()
         {
             var array = new[] { 3, 1, 2 };
