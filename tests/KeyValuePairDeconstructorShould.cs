@@ -17,5 +17,27 @@ namespace Extensions.Generic.Deconstructors
             key.Should().Be(2);
             value.Should().Be(4);
         }
+
+        [Fact]
+        public void DeconstructKeyValuePairOfStringString()
+        {
+            var kvp = new KeyValuePair<string, string>("foo", "bar");
+
+            var (key, value) = kvp;
+
+            key.Should().Be("foo");
+            value.Should().Be("bar");
+        }
+
+        [Fact]
+        public void DeconstructKeyValuePairOfInt64Double()
+        {
+            var kvp = new KeyValuePair<long, double>(42, Math.PI);
+
+            var (key, value) = kvp;
+
+            key.Should().Be(42);
+            value.Should().Be(Math.PI);
+        }
     }
 }
