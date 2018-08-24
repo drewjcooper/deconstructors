@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp1.1;net452;net47</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(TRAVIS)' == '' ">netcoreapp2.1;netcoreapp1.1;net452;net47</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(TRAVIS)' == 'true' ">netcoreapp2.1;netcoreapp1.1</TargetFrameworks>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
