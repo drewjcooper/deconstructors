@@ -1,6 +1,8 @@
 language: csharp
 mono: none
-dotnet: 2.1.300
+dotnet: 
+  - 2.1.300
+  - 1.1.10
 env:
   - TRAVIS=true
 solution: Extensions.Generic.Deconstructors.sln
