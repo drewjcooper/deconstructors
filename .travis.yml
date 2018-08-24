@@ -1,8 +1,9 @@
 language: csharp
+mono: none
+dotnet: 2.1.300
 solution: Extensions.Generic.Deconstructors.sln
 install:
-  - nuget restore Extensions.Generic.Deconstructors.sln
-  - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
+  - dotnet restore Extensions.Generic.Deconstructors.sln
 script:
-  - xbuild /p:Configuration=Release Extensions.Generic.Deconstructors.sln
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./tests/bin/Release/MyProject.Tests.dll
+  - dotnet build Extensions.Generic.Deconstructors.sln
+  - dotnet test ./tests
