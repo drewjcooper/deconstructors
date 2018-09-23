@@ -3,28 +3,45 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/vsts/pipelines/apps/windows/dot-net
 
-pool:
-  vmImage: 'VS2017-Win2016'
+name: master
 
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: NuGetToolInstaller@0
+trigger: [ master ]
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+jobs:
+  - job:
+    displayName: build
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    strategy:
+      matrix:
+        Windows:
+          vmImage: 'vs2017-win2016'
+        Linux:
+          vmImage: 'ubuntu-16:04'
+        MacOS:
+          vmImage: 'macOS-10.13'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    pool:
+      vmImage: ${{ vmImage }}
+
+    steps:
+    - task: NuGetToolInstaller@0
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
