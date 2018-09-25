@@ -13,20 +13,59 @@ variables:
 trigger: [ master ]
 
 jobs:
-  - job:
-    displayName: build
-
-    strategy:
-      matrix:
-        Windows:
-          vmImage: 'vs2017-win2016'
-        Linux:
-          vmImage: 'ubuntu-16:04'
-        MacOS:
-          vmImage: 'macOS-10.13'
+  - job: macOS
+    displayName: Build on MacOS
 
     pool:
-      vmImage: $(vmImage)
+      vmImage: 'macOS-10.13'
+
+    steps:
+    - task: NuGetToolInstaller@0
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+  - job: windows
+    displayName: Build on Windows
+
+    pool:
+      vmImage: 'vs2017-win2016'
+
+    steps:
+    - task: NuGetToolInstaller@0
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+  - job: linux
+    displayName: Build on Ubuntu
+
+    pool:
+      vmImage: 'ubuntu-16.04'
 
     steps:
     - task: NuGetToolInstaller@0
