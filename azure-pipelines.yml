@@ -26,7 +26,7 @@ jobs:
           vmImage: 'macOS-10.13'
 
     pool:
-      vmImage: ${{ vmImage }}
+      vmImage: $(vmImage)
 
     steps:
     - task: NuGetToolInstaller@0
